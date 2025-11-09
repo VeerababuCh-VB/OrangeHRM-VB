@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="OrangeHRM Test Suite" verbose="1" parallel="false">
+
+    <test name="OrangeHRM UI Test" enabled="true">
+
+        <!-- Custom project parameters -->
+        <parameter name="environment" value="uat"/>
+        <parameter name="browser" value="chrome"/>
+
+        <!--This is how you include Cucumber tags -->
+        <parameter name="cucumber.filter.tags" value="@OrangeHRM1"/>
+
+        <classes>
+            <class name="TestRunner.TestNgTestRunner"/>
+        </classes>
+
+    </test>
+</suite>

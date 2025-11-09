@@ -7,6 +7,10 @@ import org.openqa.selenium.support.ui.*;
 public class WaitUtil {
 
 	private WebDriverWait wait;
+	WebDriver driver;
+	public WaitUtil(WebDriver driver) {
+	    this.driver = driver;
+	}
 
 	public WaitUtil(WebDriver driver, int timeoutSeconds) {
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
@@ -60,4 +64,27 @@ public class WaitUtil {
 	    wait.until(ExpectedConditions.visibilityOf(element));
 	    return element;
 	}
+	
+	public void clearAndType(WebElement element, String text) {
+	    try {
+	        JavascriptExecutor js = (JavascriptExecutor) driver;
+	        js.executeScript(
+	            "const elem = arguments[0];" +
+	            "elem.focus();" +
+	            "elem.value = '';" +
+	            "elem.dispatchEvent(new Event('input', { bubbles: true }));" +
+	            "elem.dispatchEvent(new Event('change', { bubbles: true }));",
+	            element
+	        );
+
+	        Thread.sleep(300);
+	        element.sendKeys(Keys.CONTROL + "a");
+	        element.sendKeys(Keys.DELETE);
+	        element.sendKeys(text);
+
+	    } catch (Exception e) {
+	        System.out.println("❌ Failed to clear and type text: " + e.getMessage());
+	    }
+	}
+
 }

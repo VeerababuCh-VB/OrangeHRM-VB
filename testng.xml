@@ -8,10 +8,10 @@
         <parameter name="browser" value="chrome"/>
 
         <!--This is how you include Cucumber tags -->
-        <parameter name="cucumber.filter.tags" value="@OrangeHRM1"/>
+        <parameter name="cucumber.filter.tags" value="@AddEmployeeScenario"/>
 
         <classes>
-            <class name="TestRunner.TestNgTestRunner"/>
+            <class name="TestRunner.TestNGTestRunner"/>
         </classes>
 
     </test>

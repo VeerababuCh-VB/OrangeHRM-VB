@@ -3,6 +3,7 @@ package StepDefinitions;
 import java.time.Duration;
 import java.util.Random;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -22,7 +23,7 @@ public class OrangeHRMSteps_PF {
 	private static WebDriver driver;
 	private Login_PF login_Test;
 	private WaitUtil waitUtil;
-
+	
 	@Before
 	public void beforeScenario(Scenario scenario) {
 		String rawUri = scenario.getUri().toString().replace("\\", "/");
@@ -116,7 +117,7 @@ public class OrangeHRMSteps_PF {
 	}
 
 	@Then("Add Employye details in PIM page with {string} and {string}")
-	public void add_employee_details_in_pim_page(String FirstName, String LastName) {
+	public void add_employee_details_in_pim_page(String FirstName, String LastName) throws InterruptedException {
 	    login_Test.savebtn.click();
 
 	    WebElement actualfnerrorElement = waitUtil.waitForErrorElementVisible(login_Test.firstNameError);
@@ -138,10 +139,13 @@ public class OrangeHRMSteps_PF {
 	        int number = 10000 + random.nextInt(90000);
 	        String result = "VB" + number;
 	        if (login_Test.idinput.isDisplayed() && login_Test.idinput.isEnabled()) {
-	            login_Test.idinput.clear();
-	            login_Test.idinput.sendKeys(result);
+	        	waitUtil.clearAndType(login_Test.idinput, result);
 	            ExtentReportManager.logPass("Entered all details successfully");
 	            ScreenshotUtil.captureAndLogPass(driver, "All mandatory details entered", "Entered_All_Details");
+	            waitUtil.waitForElementVisible(login_Test.savebtn);
+	            login_Test.savebtn.click();
+	            Thread.sleep(5000);
+	            ScreenshotUtil.captureAndLogPass(driver, "Successfully Clicked Save Button", "Save Button Clicked");
 	        } else {
 	            ExtentReportManager.logFail("Not able to enter all details");
 	            ScreenshotUtil.captureAndLogFail(driver, "Unable to enter mandatory details", "Not_Entered_All_Details");

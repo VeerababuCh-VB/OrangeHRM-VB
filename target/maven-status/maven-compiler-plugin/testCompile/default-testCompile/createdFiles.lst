@@ -1,9 +1,0 @@
-StepDefinitions\OrangeHRMSteps_PF.class
-TestRunner\TestNGTestRunner.class
-Utilities\ReportHooks.class
-StepDefinitions\Hooks.class
-Utilities\ScreenshotUtil.class
-pageFactory\Login_PF.class
-Utilities\WaitUtil.class
-Utilities\ExtentReportManager.class
-Utilities\PropertiesReader.class
